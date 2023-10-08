@@ -1,0 +1,74 @@
+<html>
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+    <head>
+        <title>Calculator</title>
+    </head>
+    <script type="text/javascript">
+        function putOnScreen(y) {
+            if (y!='clr' && y!='equal'){
+                document.getElementById('screen').innerHTML+= y;
+            }else if (y=='clr'){
+                document.getElementById('screen').innerHTML = '';
+            }else if(y == 'equal'){
+                let res = document.getElementById('screen').innerHTML;
+                let res1 = eval(res);
+                document.getElementById('screen').innerHTML = res1;
+            }
+        }
+    </script>
+    <style>
+        td {
+            background-color: rgb(28, 128, 18);
+            text-align: center;
+            font-size: 20px;
+            border-radius: 8%;
+            height: 80px;
+            width: 80px;
+        }
+        td:active{
+            background-color: blanchedalmond;
+        }
+        #screen {
+            color: white;
+            font-size: 30px;
+            text-align: right;
+        }
+    </style>
+    <body>
+        <form style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background-color:rgb(155, 108, 19);height: 600px;width: 400px;border-radius:10%">
+            <div id="screen" style="height:100px;width:350px;background-color:black;margin-left:25px;margin-top:50px;border-radius:5%"></div>
+            <div style="margin-top:20px;margin-left:30px;height: 400px;width:350px">
+                <table>
+                    <tr>
+                        <td onclick="putOnScreen('clr')">CLEAR</td>
+                        <td onclick="putOnScreen('/')">/</td>
+                        <td onclick="putOnScreen('*')">*</td>
+                        <td onclick="putOnScreen('-')">-</td>
+                    </tr>
+                    <tr>
+                        <td onclick="putOnScreen('7')">7</td>
+                        <td onclick="putOnScreen('8')">8</td>
+                        <td onclick="putOnScreen('9')">9</td>
+                        <td rowspan="2" onclick="putOnScreen('+')">+</td>
+                    </tr>
+                    <tr>
+                        <td onclick="putOnScreen('4')">4</td>
+                        <td onclick="putOnScreen('5')">5</td>
+                        <td onclick="putOnScreen('6')">6</td> 
+                    </tr>
+                    <tr>
+                        <td onclick="putOnScreen('1')">1</td>
+                        <td onclick="putOnScreen('2')">2</td>
+                        <td onclick="putOnScreen('3')">3</td>
+                        <td rowspan="2" onclick="putOnScreen('equal')">=</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" onclick="putOnScreen('0')">0</td>
+                        <td onclick="putOnScreen('.')">.</td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+    </body>
+</html>

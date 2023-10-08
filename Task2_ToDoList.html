@@ -1,0 +1,148 @@
+<html>
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+    <head><title>TO_DO_LIST</title></head>
+    <script type="text/javascript">
+        
+        let store = localStorage.getItem("todo") == null ? new Array() : JSON.parse(localStorage.getItem("todo"));
+        var c = true;
+        var k = true;
+        
+
+        function add(list){
+
+
+            if(document.getElementById('tt').value == ""){
+                alert('you should fill the blank');
+            }
+            else{
+            var rules = "";
+        
+            var w1 = document.getElementById('tt').value;
+            
+            var w = w1;
+            var li = document.createElement("li");
+            var rule = document.createTextNode(w);
+            li.appendChild(rule);
+
+            var compBtn = document.createElement("input");
+            compBtn.type = "button";
+            compBtn.value = "Done ?";
+            compBtn.style = "background-color:green;margin-left:15px";
+            compBtn.id = "done";
+            compBtn.onclick = finished;
+            li.appendChild(compBtn);
+
+            var priBtn = document.createElement("input");
+            priBtn.type = "button";
+            priBtn.value = "IMPORTANT";
+            priBtn.style = "background-color:gold;margin-left:10px";
+            priBtn.id = "pri";
+            priBtn.onclick = priority;
+            li.appendChild(priBtn);
+
+            var removeBtn = document.createElement("input");
+            removeBtn.type = "button";
+            removeBtn.value = "X";
+            removeBtn.style = "background-color:red;margin-left:15px";
+            removeBtn.onclick = remove;
+            li.appendChild(removeBtn);
+
+            document.getElementById("list").appendChild(li).innerHTML;
+            document.getElementById("tt").value = "";
+            
+            
+            store.push(w1);
+            window.localStorage.setItem("todo",JSON.stringify(store));
+            }
+            
+        }
+
+
+        function remove(e) {
+            var el = e.target;
+            el.parentNode.remove();
+            var li = el.closest('li');
+            li.remove;
+            var nodes = Array.from(li.closest('list').txtNode);
+            var index = nodes.indexOf(li);
+            store.pop(index);
+            window.localStorage.setItem("todo",JSON.stringify(store));
+        }
+
+        function finished(e) {
+            if(k==true){
+                var el = e.target;
+                el.parentNode.style = "background-color: green;";
+                k = false;
+            }
+            else{
+                var el = e.target;
+                el.parentNode.style = "background-color: #cccccc;";
+                k = true;
+            }
+        }
+
+        function priority(e) {
+            if(c==true){
+                var el = e.target;
+                el.parentNode.style = "background-color: yellow;";
+                c = false;
+            }
+            else{
+                var el = e.target;
+                el.parentNode.style = "background-color: #cccccc;";
+                c = true;
+            }
+        
+        }
+
+        function fillPrevious(){
+            let l = document.getElementById("list");
+            for (let txt of store){
+                let li = document.createElement('li');
+                let txtNode = document.createTextNode(txt);
+                li.appendChild(txtNode);
+                
+                var compBtn = document.createElement("input");
+                compBtn.type = "button";
+                compBtn.value = "Done ?";
+                compBtn.style = "background-color:green;margin-left:15px";
+                compBtn.id = "done";
+                compBtn.onclick = finished;
+                li.appendChild(compBtn);
+
+                var priBtn = document.createElement("input");
+                priBtn.type = "button";
+                priBtn.value = "IMPORTANT";
+                priBtn.style = "background-color:gold;margin-left:10px";
+                priBtn.id = "pri";
+                priBtn.onclick = priority;
+                li.appendChild(priBtn);
+
+                var removeBtn = document.createElement("input");
+                removeBtn.type = "button";
+                removeBtn.value = "X";
+                removeBtn.style = "background-color:red;margin-left:15px";
+                removeBtn.onclick = remove;
+                li.appendChild(removeBtn);
+                
+                
+                l.appendChild(li);
+            }
+        }
+
+    </script>
+    <body onload="fillPrevious()">
+        <form style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:650px;text-align:center;background-color:#cccccc;background-position:relative;border-color:goldenrod;border-style:dotted;border-width:10px">
+            <h1 style="color:rgb(168, 144, 9);font: size 50px;">TO DO LIST</h1><p id="dt"></p>
+            <input type="text" name="t1"  style="height: 50px;width:400px;border-radius:20%" id="tt" required><br>
+            <input type="button" name="b1" value="ADD" style="height:20px;width:40px;background-color:rgba(202, 176, 27, 0.89)" onclick="add()">
+            <input type="radio" name="r1" value="Completed" id="com" onclick="compl()">Completed
+            <input type="radio" name="r1" value="pending" id="pen" onclick="pend()">Pending
+            <br>
+            <ol id="list" style="text-align:left;font-size:20px;margin-left:40px;margin-right:40px;color:black"></ol>
+            <p id="er"></p>
+        </form>
+    </body>
+</html>
